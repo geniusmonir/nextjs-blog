@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 import './globals.css';
 import NavLinks from '../components/navbar/nav-links';
+import { ClerkProvider } from '@clerk/nextjs';
 
 const geistSans = localFont({
   src: '../fonts/GeistVF.woff',
@@ -26,13 +27,17 @@ const RootLayout = (
   }>
 ) => {
   return (
-    <html lang='en'>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <NavLinks />
-        <main>{props.children}</main>
-      </body>
-    </html>
+    <ClerkProvider>
+      <html lang='en'>
+        <body
+          className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+          <header>
+            <NavLinks />
+          </header>
+          <main>{props.children}</main>
+        </body>
+      </html>
+    </ClerkProvider>
   );
 };
 
